@@ -7,9 +7,18 @@ var Node = /** @class */ (function () {
         this.options.children = this.options.children || [];
     }
     Node.prototype.appendChild = function (child) {
-        var _a;
-        child.setParentNode = this;
-        (_a = this.options.children) === null || _a === void 0 ? void 0 : _a.push(child);
+        var _a, _b;
+        if (child.node_id) {
+            child.setParentNode = this;
+            (_a = this.options.children) === null || _a === void 0 ? void 0 : _a.push(child);
+            return;
+        }
+        var new_node = new Node({
+            tag: "text",
+            parent: this,
+            text_content: child,
+        });
+        (_b = this.options.children) === null || _b === void 0 ? void 0 : _b.push(new_node);
     };
     Node.prototype.removeChild = function (child) {
         var _a, _b;

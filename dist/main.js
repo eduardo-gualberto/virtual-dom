@@ -21,5 +21,6 @@ h4.appendChild(new Node_1.default({
         id: "pzin",
     },
 }));
-var res = html.queryNode({ id: "pzin" });
+h4.appendChild("alowwww marilene");
+var res = html.queryNode({ tag: "text" });
 console.log(res);

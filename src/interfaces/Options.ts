@@ -6,4 +6,5 @@ export default interface IOptions {
   parent?: Node;
   children?: Node[];
   props?: IProps;
+  text_content?: string;
 }

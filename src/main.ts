@@ -1,5 +1,4 @@
 import VirtualDOM from "./models/VirtualDOM";
-import IOptions from "./interfaces/Options";
 import Node from "./models/Node";
 
 const document = new VirtualDOM();
@@ -27,5 +26,7 @@ h4.appendChild(
   })
 );
 
-const res = html.queryNode({ id: "pzin" });
+h4.appendChild("alowwww marilene");
+
+const res = html.queryNode({ tag: "text" });
 console.log(res);

@@ -10,9 +10,18 @@ export default class Node {
     this.options.children = this.options.children || [];
   }
 
-  appendChild(child: Node): void {
-    child.setParentNode = this;
-    this.options.children?.push(child);
+  appendChild(child: Node | string): void {
+    if ((child as Node).node_id) {
+      (child as Node).setParentNode = this;
+      this.options.children?.push(child as Node);
+      return;
+    }
+    const new_node = new Node({
+      tag: "text",
+      parent: this,
+      text_content: child as string,
+    });
+    this.options.children?.push(new_node);
   }
 
   removeChild(child: Node): boolean {
