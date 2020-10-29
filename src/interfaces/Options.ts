@@ -7,4 +7,5 @@ export default interface IOptions {
   children?: Node[];
   props?: IProps;
   text_content?: string;
+  el?: Element | Document;
 }

@@ -3,30 +3,35 @@ import Node from "./models/Node";
 
 const document = new VirtualDOM();
 
-const html = document.queryNode({ id: "__HTML__" })[0];
+document.getContext();
 
-for (let i = 1; i < 6; i++)
-  html.appendChild(
-    new Node({
-      tag: `h${i}`,
-      props: {
-        id: i.toString(),
-      },
-    })
-  );
+const DOMHTML = document.root.HTMLElement.querySelector("html");
+console.log(DOMHTML);
 
-const h4 = html.queryNode({ id: "4" })[0];
+// const html = document.queryNode({ id: "__HTML__" })[0];
 
-h4.appendChild(
-  new Node({
-    tag: "p",
-    props: {
-      id: "pzin",
-    },
-  })
-);
+// for (let i = 1; i < 6; i++)
+//   html.appendChild(
+//     new Node({
+//       tag: `h${i}`,
+//       props: {
+//         id: i.toString(),
+//       },
+//     })
+//   );
 
-h4.appendChild("alowwww marilene");
+// const h4 = html.queryNode({ id: "4" })[0];
 
-const res = html.queryNode({ tag: "text" });
-console.log(res);
+// h4.appendChild(
+//   new Node({
+//     tag: "p",
+//     props: {
+//       id: "pzin",
+//     },
+//   })
+// );
+
+// h4.appendChild("FUNCIONA GEZUIS");
+
+// const res = html.queryNode({ tag: "text" });
+// console.log(res);

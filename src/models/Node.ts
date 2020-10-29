@@ -33,6 +33,10 @@ export default class Node {
     return true;
   }
 
+  get HTMLElement(): Element | Document {
+    return this.options.el!;
+  }
+
   get getParent(): Node {
     return this.options.parent || ({} as Node);
   }
