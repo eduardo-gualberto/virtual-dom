@@ -1,6 +1,4 @@
 //VirtualDOM extends Node
-
-import IOptions from "../interfaces/Options";
 import Node from "./Node";
 
 /*
@@ -10,11 +8,19 @@ import Node from "./Node";
 
 export default class VirtualDom {
   root: Node;
-  constructor() {
+  constructor(id: string) {
     this.root = new Node({
       tag: "root",
-      el: document,
+      props: {
+        id,
+        class: document.querySelector(id)?.className,
+      },
+      el: document.querySelector(id) as Element,
+      text_content: document.querySelector(id)?.textContent as string,
     });
+
+    for (let i = 0; i < this.root.HTMLElement.children.length; i++)
+      this.populate(this.root.HTMLElement.children[i], this.root);
   }
 
   get document(): Node {
@@ -22,7 +28,7 @@ export default class VirtualDom {
   }
 
   getContext(): void {
-    console.log(document.children);
+    console.log(this.document.HTMLElement.children);
   }
 
   //recursivamente preenche o VDOM baseado no estado do DOM
@@ -31,7 +37,7 @@ export default class VirtualDom {
     //cria novo node para o VDOM
     const node = new Node({
       tag: htmlEl.localName,
-      parent: parent,
+      parent,
       el: htmlEl,
       props: {
         id: htmlEl.id,
