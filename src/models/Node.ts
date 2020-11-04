@@ -16,8 +16,17 @@ export default class Node {
       this.options.children?.push(child as Node);
 
       //api de escrita no dom... (temporário)
-      this.HTMLElement.appendChild((child as Node).HTMLElement);
-
+      if ((child as Node).HTMLElement)
+        this.HTMLElement!.appendChild((child as Node).HTMLElement!);
+      else {
+        const newEl = document.createElement((child as Node).getTag);
+        newEl.textContent = (child as Node).getTextContent || "";
+        const childProps = Object.keys((child as Node).getProps);
+        for (let prop of childProps)
+          (newEl as any)[prop] = (child as Node).getProps[prop];
+        this.HTMLElement?.appendChild(newEl);
+        (child as Node).setHTMLElement = newEl;
+      }
       return;
     }
     const new_node = new Node({
@@ -29,6 +38,8 @@ export default class Node {
   }
 
   removeChild(child: Node): boolean {
+    console.log("child", child);
+
     const index = this.options.children?.findIndex(
       (c) => c.getNodeId === child.getNodeId
     );
@@ -36,13 +47,17 @@ export default class Node {
     this.options.children?.splice(index, 1);
 
     //api de escrita no dom... (temporário)
-    this.HTMLElement.removeChild(child.HTMLElement);
+    this.HTMLElement!.removeChild(child.HTMLElement!);
 
     return true;
   }
 
-  get HTMLElement(): Element | Document {
-    return this.options.el!;
+  get HTMLElement(): Element | Document | undefined {
+    return this.options.el;
+  }
+
+  set setHTMLElement(el: Element) {
+    this.options.el = el;
   }
 
   get getParent(): Node {
@@ -57,26 +72,33 @@ export default class Node {
     return this.options.tag;
   }
 
-  get getProps(): IProps {
-    return this.options.props || ({} as IProps);
+  get getProps(): any {
+    return this.options.props || ({} as any);
   }
 
   get getNodeId(): number {
     return this.node_id;
   }
 
+  get getTextContent(): string | undefined {
+    return this.options.text_content;
+  }
+
   get getQueryFields(): IQuery {
     return {
       node_id: this.node_id,
       tag: this.getTag,
-      class: this.getProps.class,
-      id: this.getProps.id,
+      ...this.getProps,
     } as IQuery;
   }
 
   set setParentNode(parent: Node) {
     if (this.options.parent) return;
     this.options.parent = parent;
+  }
+
+  setProp(prop: string, value: any): void {
+    this.options.props[prop] = value;
   }
 
   queryNode(opt: IQuery): Node[] {

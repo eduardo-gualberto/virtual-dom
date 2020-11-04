@@ -19,8 +19,8 @@ export default class VirtualDom {
       text_content: document.querySelector(id)?.textContent as string,
     });
 
-    for (let i = 0; i < this.root.HTMLElement.children.length; i++)
-      this.populate(this.root.HTMLElement.children[i], this.root);
+    for (let i = 0; i < this.root.HTMLElement!.children.length; i++)
+      this.populate(this.root.HTMLElement!.children[i], this.root);
   }
 
   get document(): Node {
@@ -28,12 +28,12 @@ export default class VirtualDom {
   }
 
   getContext(): void {
-    console.log(this.document.HTMLElement.children);
+    console.log(this.document.HTMLElement!.children);
   }
 
   //recursivamente preenche o VDOM baseado no estado do DOM
   //para quando todos os nodes forem incluidos no VDOM
-  populate(htmlEl: Element, parent: Node): void {
+  private populate(htmlEl: Element, parent: Node): void {
     //cria novo node para o VDOM
     const node = new Node({
       tag: htmlEl.localName,

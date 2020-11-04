@@ -5,7 +5,7 @@ export default interface IOptions {
   tag: string;
   parent?: Node;
   children?: Node[];
-  props?: IProps;
+  props?: any;
   text_content?: string;
   el?: Element | Document;
 }
