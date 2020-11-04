@@ -14,6 +14,10 @@ export default class Node {
     if ((child as Node).node_id) {
       (child as Node).setParentNode = this;
       this.options.children?.push(child as Node);
+
+      //api de escrita no dom... (temporário)
+      this.HTMLElement.appendChild((child as Node).HTMLElement);
+
       return;
     }
     const new_node = new Node({
@@ -30,6 +34,10 @@ export default class Node {
     );
     if (index === -1 || index === undefined) return false;
     this.options.children?.splice(index, 1);
+
+    //api de escrita no dom... (temporário)
+    this.HTMLElement.removeChild(child.HTMLElement);
+
     return true;
   }
 

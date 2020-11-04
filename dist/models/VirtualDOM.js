@@ -23,7 +23,7 @@ var VirtualDom = /** @class */ (function () {
         get: function () {
             return this.root;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     VirtualDom.prototype.getContext = function () {

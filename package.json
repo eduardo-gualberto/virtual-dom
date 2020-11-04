@@ -5,8 +5,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "dev": "webpack --watch & webpack-dev-server",
-    "build": "webpack"
+    "dev": "webpack --watch & tsc --watch & webpack-dev-server"
   },
   "keywords": [],
   "author": "",

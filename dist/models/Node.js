@@ -9,6 +9,8 @@ var Node = /** @class */ (function () {
         if (child.node_id) {
             child.setParentNode = this;
             (_a = this.options.children) === null || _a === void 0 ? void 0 : _a.push(child);
+            //api de escrita no dom... (temporário)
+            this.HTMLElement.appendChild(child.HTMLElement);
             return;
         }
         var new_node = new Node({
@@ -24,48 +26,50 @@ var Node = /** @class */ (function () {
         if (index === -1 || index === undefined)
             return false;
         (_b = this.options.children) === null || _b === void 0 ? void 0 : _b.splice(index, 1);
+        //api de escrita no dom... (temporário)
+        this.HTMLElement.removeChild(child.HTMLElement);
         return true;
     };
     Object.defineProperty(Node.prototype, "HTMLElement", {
         get: function () {
             return this.options.el;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Node.prototype, "getParent", {
         get: function () {
             return this.options.parent || {};
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Node.prototype, "getChildren", {
         get: function () {
             return this.options.children || [];
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Node.prototype, "getTag", {
         get: function () {
             return this.options.tag;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Node.prototype, "getProps", {
         get: function () {
             return this.options.props || {};
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Node.prototype, "getNodeId", {
         get: function () {
             return this.node_id;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Node.prototype, "getQueryFields", {
@@ -77,7 +81,7 @@ var Node = /** @class */ (function () {
                 id: this.getProps.id,
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Node.prototype, "setParentNode", {
@@ -86,7 +90,7 @@ var Node = /** @class */ (function () {
                 return;
             this.options.parent = parent;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Node.prototype.queryNode = function (opt) {
