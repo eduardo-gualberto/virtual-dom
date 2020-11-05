@@ -2,7 +2,6 @@
 Implementação de um Virtual DOM enxuto. Estes são comumente utilizados em frameworks front-end como ReactJS e VueJS.
 O objetivo do projeto é o aprendizado aprofundado sobre conceitos web front-end que são cada vez mais necessários.
 
-# Base
 ## Estrutura da Árvore
 O VDOM, assim como o DOM dos browsers consiste numa estrutura de árvore. Exemplo (ilustrativo):
 ```javascript
