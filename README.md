@@ -25,8 +25,31 @@ Um DOM Virtual é muito utilizado para otimizar a renderição do layout do DOM.
 
 ```javascript
 import VirtualDOM from "./models/VirtualDOM";
+import Node from "./models/Node";
 
 const VDOM = new VirtualDOM("#app");
+const root = VDOM.root;
 ```
 O argumento passado para o construtor da classe é o seletor CSS do elemento no qual o VDOM irá ter seu nó raiz. Logo na instanciação da classe, um método será chamado para popular o VDOM com os elementos já presentes no elemento indicado.
 
+```javascript
+//adiciona nó filho em root
+root.appendNodeChild(new Node({
+  ...options
+}));
+
+...
+
+//adiciona nó filho em root e cria o vínculo entre seus elementos HTML
+root.appendChild(new Node({
+  ...options
+}));
+```
+
+As funções appendChild e appendNodeChild adicionam á estrutura da arvore o nó passado como argumento. A diferença entre as duas é que appendNodeChild no interege com o DOM do browser, apenas com o VDOM, já appendChild cria vínculos com o DOM do browser.
+
+```javascript
+const queried_node = root.queryNode(node.getQueryFields);
+```
+
+node.queryNode procura, a partir do nó do qual se chama, filhos que satisfaçam os critérios indicados em seu único parâmetro.
