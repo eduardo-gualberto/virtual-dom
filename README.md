@@ -53,4 +53,4 @@ const queried_node = root.queryNode(node.getQueryFields);
 
 node.queryNode procura, a partir do nó do qual se chama, filhos que satisfaçam os critérios indicados em seu único parâmetro.
 
-Existem mais alguns métodos, principalmente getters e setters, na classe dos nós, porém são triviais.
+Existem mais alguns métodos, principalmente getters e setters, na classe dos nós, porém são triviais. Nota-se aqui que existem métodos para escrita no DOM do browser, porém não existem os de leitura. Isso acontece por que a leitura no DOM não implica em problemas de performance devido ao "update" do layout inteiro da aplicação, portanto é indicado ler diretamente do DOM.
