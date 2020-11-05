@@ -47,7 +47,7 @@ export default class VirtualDom {
     });
 
     //adiciona o novo node como filho do pai
-    parent.appendChild(node);
+    parent.appendNodeChild(node);
 
     //popula os nodes filhos
     for (let i = 0; i < htmlEl.children.length; i++)

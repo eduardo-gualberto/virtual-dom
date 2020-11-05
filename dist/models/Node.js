@@ -14,34 +14,38 @@ var Node = /** @class */ (function () {
         this.options = options;
         this.node_id = Math.random();
         this.options.children = this.options.children || [];
+        if (!this.options.el) {
+            this.setHTMLElement = document.createElement(this.options.tag);
+        }
     }
     Node.prototype.appendChild = function (child) {
-        var _a, _b, _c;
+        if (this.queryNode(child.getQueryFields).length === 0)
+            this.appendNodeChild(child);
+        var newEl = child.HTMLElement;
+        newEl.textContent = child.getTextContent || "";
+        var childProps = Object.keys(child.getProps);
+        for (var _i = 0, childProps_1 = childProps; _i < childProps_1.length; _i++) {
+            var prop = childProps_1[_i];
+            newEl[prop] = child.getProps[prop];
+        }
+        this.HTMLElement.appendChild(newEl);
+        child.getChildren.forEach(function (c) { return child.appendChild(c); });
+    };
+    Node.prototype.appendNodeChild = function (child) {
+        var _a;
         if (child.node_id) {
             child.setParentNode = this;
             (_a = this.options.children) === null || _a === void 0 ? void 0 : _a.push(child);
-            //api de escrita no dom... (temporário)
-            if (child.HTMLElement)
-                this.HTMLElement.appendChild(child.HTMLElement);
-            else {
-                var newEl = document.createElement(child.getTag);
-                newEl.textContent = child.getTextContent || "";
-                var childProps = Object.keys(child.getProps);
-                for (var _i = 0, childProps_1 = childProps; _i < childProps_1.length; _i++) {
-                    var prop = childProps_1[_i];
-                    newEl[prop] = child.getProps[prop];
-                }
-                (_b = this.HTMLElement) === null || _b === void 0 ? void 0 : _b.appendChild(newEl);
-                child.setHTMLElement = newEl;
-            }
-            return;
         }
-        var new_node = new Node({
-            tag: "text",
-            parent: this,
-            text_content: child,
-        });
-        (_c = this.options.children) === null || _c === void 0 ? void 0 : _c.push(new_node);
+        else {
+            var new_node = new Node({
+                tag: "div",
+                parent: this,
+                text_content: child,
+                el: document.createElement("div"),
+            });
+            this.options.children.push(new_node);
+        }
     };
     Node.prototype.removeChild = function (child) {
         var _a, _b;

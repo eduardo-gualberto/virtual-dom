@@ -44,7 +44,7 @@ var VirtualDom = /** @class */ (function () {
             text_content: htmlEl.textContent,
         });
         //adiciona o novo node como filho do pai
-        parent.appendChild(node);
+        parent.appendNodeChild(node);
         //popula os nodes filhos
         for (var i = 0; i < htmlEl.children.length; i++)
             this.populate(htmlEl.children[i], node);

@@ -17,5 +17,7 @@ var h1 = new Node({
         class: "aloww",
     },
 });
-root.appendChild(div);
 div.appendChild(h1);
+root.appendChild(div);
+console.log(div.getChildren);
+console.log(root.HTMLElement);

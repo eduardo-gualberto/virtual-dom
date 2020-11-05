@@ -22,6 +22,9 @@ const h1 = new Node({
   },
 });
 
+div.appendChild(h1);
 root.appendChild(div);
 
-div.appendChild(h1);
+console.log(div.getChildren);
+
+console.log(root.HTMLElement);

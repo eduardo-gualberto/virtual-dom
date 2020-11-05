@@ -8,33 +8,40 @@ export default class Node {
   constructor(private options: IOptions) {
     this.node_id = Math.random();
     this.options.children = this.options.children || [];
+    if (!this.options.el) {
+      this.setHTMLElement = document.createElement(this.options.tag);
+    }
   }
 
-  appendChild(child: Node | string): void {
+  appendChild(child: Node): void {
+    if (this.queryNode(child.getQueryFields).length === 0)
+      this.appendNodeChild(child);
+
+    const newEl = (child as Node).HTMLElement!;
+
+    newEl.textContent = (child as Node).getTextContent || "";
+    const childProps = Object.keys((child as Node).getProps);
+    for (let prop of childProps)
+      (newEl as any)[prop] = (child as Node).getProps[prop];
+
+    this.HTMLElement!.appendChild(newEl);
+
+    child.getChildren.forEach((c) => child.appendChild(c));
+  }
+
+  appendNodeChild(child: Node | string): void {
     if ((child as Node).node_id) {
       (child as Node).setParentNode = this;
       this.options.children?.push(child as Node);
-
-      //api de escrita no dom... (temporário)
-      if ((child as Node).HTMLElement)
-        this.HTMLElement!.appendChild((child as Node).HTMLElement!);
-      else {
-        const newEl = document.createElement((child as Node).getTag);
-        newEl.textContent = (child as Node).getTextContent || "";
-        const childProps = Object.keys((child as Node).getProps);
-        for (let prop of childProps)
-          (newEl as any)[prop] = (child as Node).getProps[prop];
-        this.HTMLElement?.appendChild(newEl);
-        (child as Node).setHTMLElement = newEl;
-      }
-      return;
+    } else {
+      const new_node = new Node({
+        tag: "div",
+        parent: this,
+        text_content: child as string,
+        el: document.createElement("div"),
+      });
+      this.options.children!.push(new_node);
     }
-    const new_node = new Node({
-      tag: "text",
-      parent: this,
-      text_content: child as string,
-    });
-    this.options.children?.push(new_node);
   }
 
   removeChild(child: Node): boolean {
