@@ -53,3 +53,5 @@ const queried_node = root.queryNode(node.getQueryFields);
 ```
 
 node.queryNode procura, a partir do nó do qual se chama, filhos que satisfaçam os critérios indicados em seu único parâmetro.
+
+Existem mais alguns métodos, principalmente getters e setters, na classe dos nós, porém são triviais.
