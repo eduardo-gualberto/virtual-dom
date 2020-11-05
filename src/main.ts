@@ -1,3 +1,10 @@
+/*
+  ARQUIVO PARA PROPOSITOS DE TESTE DA BIBLIOTECA
+
+  THIS ARCHIVE'S PURPOUSE IS FOR TESTING THE LIBRARY
+
+*/
+
 import Node from "./models/Node";
 import VirtualDOM_ from "./models/VirtualDOM";
 
