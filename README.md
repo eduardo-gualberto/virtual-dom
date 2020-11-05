@@ -4,7 +4,7 @@ O objetivo do projeto é o aprendizado aprofundado sobre conceitos web front-end
 
 # Base
 ## Estrutura da Árvore
-O VDOM, assim como o DOM dos browsers consiste numa estrutura de árvore. Exemplo:
+O VDOM, assim como o DOM dos browsers consiste numa estrutura de árvore. Exemplo (ilustrativo):
 ```javascript
 {
   tag: "...",
